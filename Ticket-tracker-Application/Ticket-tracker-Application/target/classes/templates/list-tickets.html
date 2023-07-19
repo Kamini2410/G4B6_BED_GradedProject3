@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Ticket Tracker</title>
+</head>
+
+<body>
+
+<div class="container">
+
+	<h3>Ticket Tracker Application</h3>
+	<hr>
+	
+	<!-- Add a button -->
+	<a th:href="@{/list}"
+		class="btn btn-primary btn-sm mb-3">
+		Tickets
+	</a>
+	<!-- Add a button -->
+	<a th:href="@{/showFormForAdd}"
+		class="btn btn-primary btn-sm mb-3">
+		New Ticket
+	</a>
+	<br>
+	<!-- Add a button -->
+	<a th:href="@{/search}"
+		class="btn btn-primary btn-sm mb-3">
+		Search
+	</a>
+	<br>
+	<h3>List of Tickets</h3>
+	<hr>
+	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+			<th>Ticket Id</th>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Ticket Created On</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="tempTicket : ${tickets}">
+			<td th:text="${tempTicket.id}" />	
+				<td th:text="${tempTicket.title}" />	
+				<td th:text="${tempTicket.description}" />	
+				<td th:text="${tempTicket.ticketCreatedOn}" />	
+				
+				<td>
+				<div class="row">
+				
+					<div class="col-small">
+					<!-- Add "view" button/link -->
+					<form action="#" th:action="@{/view}" method="GET">
+					
+						<input type="hidden" name="id" th:value="${tempTicket.id}" />						
+						<button type="submit" class="btn btn-info btn-sm ml-3 mr-1">View</button>
+
+					</form>
+					</div>
+					
+					
+					
+					
+					<div class="col-small">
+					<!-- Add "edit" button/link -->
+					<form action="#" th:action="@{/showFormForUpdate}" method="POST">
+					
+						<input type="hidden" name="id" th:value="${tempTicket.id}" />						
+						<button type="submit" class="btn btn-info btn-sm ml-3 mr-1">Edit</button>
+
+					</form>
+					</div>
+					
+					<div class="col-small">
+					<!-- Add "delete" button/link -->					
+					<form action="#" th:action="@{/delete}" method="POST">
+					
+						<input type="hidden" name="id" th:value="${tempTicket.id}" />						
+						<button type="submit" class="btn btn-danger btn-sm"
+								onclick="if (!(confirm('Are you sure you want to delete this ticket?'))) return false">
+								Delete
+						</button>
+
+					</form>
+					</div>
+					
+					
+				
+				
+				</td>
+				
+				
+			</tr>
+		</tbody>		
+	</table>
+	
+</div>
+	
+</body>
+</html>
+
+
+
